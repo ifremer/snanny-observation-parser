@@ -1,0 +1,102 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.ifremer.sensornanny</groupId>
+	<artifactId>snanny-observation-netcdf-parser</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>snanny-observation-netcdf-parser</name>
+	<description>Concrete observation parser for netcdf files</description>
+
+	<repositories>
+		<repository>
+			<id>unidata-releases</id>
+			<name>UNIDATA Releases</name>
+			<url>https://artifacts.unidata.ucar.edu/content/repositories/unidata-releases/</url>
+		</repository>
+	</repositories>
+
+	<properties>
+		<!-- Dependencies -->
+		<snanny.observation.parser>1.0</snanny.observation.parser>
+		<netcdf.version>4.6.3</netcdf.version>
+
+		<!-- Tests Dependencies -->
+		<junit.version>4.12</junit.version>
+
+		<!-- Properties -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+
+		<!-- Plugins versions -->
+		<maven.compiler.version>2.5.1</maven.compiler.version>
+		<maven.surefire.version>2.15</maven.surefire.version>
+		<maven.shade.version>2.4.2</maven.shade.version>
+	</properties>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>fr.ifremer.sensornanny</groupId>
+			<artifactId>snanny-observation-parser</artifactId>
+			<version>${snanny.observation.parser}</version>
+		</dependency>
+
+		<!-- Netcfd -->
+		<dependency>
+			<groupId>edu.ucar</groupId>
+			<artifactId>netcdf4</artifactId>
+			<version>${netcdf.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>edu.ucar</groupId>
+			<artifactId>cdm</artifactId>
+			<version>${netcdf.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<finalName>snanny-observation-netcdf-parser</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.surefire.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.version}</version>
+				<inherited>true</inherited>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>${maven.shade.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,84 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.ifremer.sensornanny</groupId>
+	<artifactId>snanny-observation-momar-parser</artifactId>
+	<version>1.0</version>
+	<name>snanny-observation-momar-parser</name>
+	<description>Concrete observation parser for momar files</description>
+
+	<properties>
+		<!-- Dependencies -->
+		<snanny.observation.parser>1.0</snanny.observation.parser>
+		<commons.csv.version>1.2</commons.csv.version>
+
+		<!-- Tests Dependencies -->
+		<junit.version>4.12</junit.version>
+
+		<!-- Properties -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+
+		<!-- Plugins versions -->
+		<maven.compiler.version>2.5.1</maven.compiler.version>
+		<maven.surefire.version>2.15</maven.surefire.version>
+		<maven.shade.version>2.4.2</maven.shade.version>
+	</properties>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>fr.ifremer.sensornanny</groupId>
+			<artifactId>snanny-observation-parser</artifactId>
+			<version>${snanny.observation.parser}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>${commons.csv.version}</version>
+		</dependency>
+		<!-- Test dependencies -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<finalName>snanny-observation-momar-parser</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven.surefire.version}</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven.compiler.version}</version>
+				<inherited>true</inherited>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>${maven.shade.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
