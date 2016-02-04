@@ -1,21 +1,15 @@
-# snanny-observation-parser
-Interface for parsers of observation
+# Snanny Parsers 
+This project handle observation parsers used by elastic-sync project,  
 
-## Build and deploy
-tested with java 1.8 and maven 3.0.4 or above
-```sh
-mvn clean install
-```	
-
-Deploy new version 
-Edit POM and execute
-```sh
-mvn clean deploy
-```
+Available parsers :
+- snanny-observation-momar-parser : 
+    -   CSV based file representing an observation       
+- netcdf parser
+    -   Navigation file with .nav extension 
 
 ## Documentation
 
-This module must be added has dependency of concrete parser using this 
+Each parser must add dependency of concrete parser using this 
 ```xml
 	<dependency>
 		<groupId>fr.ifremer.sensornanny</groupId> 
@@ -24,7 +18,7 @@ This module must be added has dependency of concrete parser using this
 	</dependency> 
 ```
 
-The concrete parser must implements interface ObservationParser
+and implements interface ObservationParser
 
 ```java
 /**
@@ -50,7 +44,30 @@ public interface IObservationParser {
 }
 ```
 
-Exemple 
+Parser will return data transfert object describe as a TimePosition 
+```java
+/**
+* Information about observation using date, coordinates and depth
+*/
+public class TimePosition {
+
+    /** Number of the record in the file */
+    private Long recordNumber;
+
+    /** Date of the observation */
+    private Date date;
+
+    /** Latitude of the observation */
+    private Float latitude;
+
+    /** Longitude of the observation */
+    private Float longitude;
+
+    /** Depth of the observation */
+    private Float depth;
+```
+
+### Concrete parser exemple 
 
 ```java
 /**
@@ -84,3 +101,4 @@ public class SimpleTextParser implements fr.ifremer.sensornanny.observation.pars
         return ACCEPTED_FORMAT.equalsIgnoreCase(data.getMimeType());
     }
 ```
+
