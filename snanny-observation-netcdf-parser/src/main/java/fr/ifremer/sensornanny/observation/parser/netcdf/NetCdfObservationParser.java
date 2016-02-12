@@ -36,12 +36,10 @@ public class NetCdfObservationParser implements fr.ifremer.sensornanny.observati
         NetcdfFile cdfFile = null;
         try {
             cdfFile = NetcdfFile.openInMemory(data.getFileName(), ucar.nc2.util.IO.readContentsToByteArray(stream));
-            System.out.println("Chargement du fichier " + cdfFile);
             Array longitudeSection = cdfFile.readSection(LONG_SECTION);
             Array latitudeSection = cdfFile.readSection(LAT_SECTION);
             Array timeSection = cdfFile.readSection(TIME_SECTION);
             Array depthSection = cdfFile.readSection(DEPTH_SECTION);
-            System.out.println("File size " + longitudeSection.getSize());
             long size = longitudeSection.getSize();
             for (int i = 0; i < size; i++) {
                 TimePosition timePosition = new TimePosition();

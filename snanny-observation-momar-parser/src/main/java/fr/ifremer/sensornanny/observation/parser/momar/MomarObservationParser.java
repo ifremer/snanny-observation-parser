@@ -2,7 +2,9 @@ package fr.ifremer.sensornanny.observation.parser.momar;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.function.Consumer;
 
 import org.apache.commons.csv.CSVFormat;
@@ -24,7 +26,7 @@ import fr.ifremer.sensornanny.observation.parser.util.NumberParserUtil;
  */
 public class MomarObservationParser implements IObservationParser {
 
-    private static final String ACCEPTED_FORMAT = "txt/csv";
+    private static final List<String> ACCEPTED_FORMAT = Arrays.asList("txt/csv", "text/csv");
     private static final int LON_INDEX = 3;
     private static final int LAT_INDEX = 2;
     private static final int DATE_INDEX = 1;
@@ -57,13 +59,17 @@ public class MomarObservationParser implements IObservationParser {
             });
 
         } catch (Exception e) {
-            // Nothing todo
+            System.out.println("Exception lors du chargement du fichier  " + data.getFileName());
+            e.printStackTrace();
         } finally {
             IOUtils.closeQuietly(parser);
         }
     }
 
     public boolean accept(ObservationData data) {
-        return ACCEPTED_FORMAT.equalsIgnoreCase(data.getMimeType());
+        if (data.getMimeType() != null) {
+            return ACCEPTED_FORMAT.contains(data.getMimeType().toLowerCase());
+        }
+        return false;
     }
 }
