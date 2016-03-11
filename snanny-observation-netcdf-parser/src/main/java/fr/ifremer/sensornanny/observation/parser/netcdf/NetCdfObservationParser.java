@@ -52,7 +52,7 @@ public class NetCdfObservationParser implements fr.ifremer.sensornanny.observati
             }
 
         } catch (Exception e) {
-            System.out.println("Exception lors du chargement du fichier  " + cdfFile);
+            System.out.println("Exception lors du chargement du fichier  " + data.getFileName());
             e.printStackTrace();
             // Nothing to do
         } finally {
