@@ -3,3 +3,8 @@
 .project
 dependency-reduced-pom.xml
 target
+
+# other
+*.iml
+dependency-reduced-pom.xml
+.idea/
